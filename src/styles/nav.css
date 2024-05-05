@@ -1,0 +1,7 @@
+.nav-container {
+  padding-left: 32px;
+  padding-right: 32px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
