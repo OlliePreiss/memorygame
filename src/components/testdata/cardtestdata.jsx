@@ -1,16 +1,15 @@
+import Refresh from '../../assets/refresh.svg'
+
 const cardTestData = [{
-  id: 1,
-  name: "Fred",
+  gif: {Refresh},
   guessed: false
 },
 {
-  id: 2,
-  name: "Tom",
+  gif: {Refresh},
   guessed: false
 },
 {
-  id: 3,
-  name: "Harry",
+  gif: {Refresh},
   guessed: false
 }]
 

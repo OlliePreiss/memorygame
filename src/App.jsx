@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import viteLogo from '/vite.svg'
 import Card from './components/cards/Card'
 import Nav from './components/nav/Nav'
 import cardTestData from './components/testdata/cardtestdata'
@@ -8,59 +7,63 @@ import './App.css'
 function App() {
   const [topScore, setTopScore] = useState(0);
   const [currentScore, setCurrentScore] = useState(0);
-  const [cardData, setCardData] = useState(cardTestData);
-
-
+  const [gifs, setGifs] = useState(cardTestData);
 
   function resetCards() {
-    const arr = cardData.map((card) => {
+    const arr = gifs.map((gif) => {
       return {
-        ...card,
+        ...gif,
         guessed: false
       }
     })
-    setCardData(arr)
+    setGifs(arr)
   }
 
-  // useEffect(() => {
-  //   // const fetchData = fetch(`https://api.giphy.com/v1/stickers/trending?api_key=U9WY8QNPaBQStZ4urD9zS8H2ZQZPxHQ5&limit=10`)
-  //   // .then(function(response) {
-  //   //   return response.json()
-  //   // })
-  //   // .then(function(response) {
-  //   setCardData(response.data)
-  //   // })
-  //   // .catch(function(err) {
-  //   //   console.log(`Bad vibe: ${err}`)
-  //   // })
-
-  // }, [])
-
+  useEffect(() => {
+    const fetchData = fetch(`https://api.giphy.com/v1/stickers/trending?api_key=U9WY8QNPaBQStZ4urD9zS8H2ZQZPxHQ5&limit=10`, {
+      mode: 'cors'
+    })
+    .then(function(response) {
+      return response.json()
+    })
+    .then(function(response) {
+      const gifs = response.data.map((gif) => {
+        return {
+          url: gif.images.fixed_height.url,
+          guessed: false
+        }
+      })
+      setGifs(gifs)
+    })
+    .catch(function(err) {
+      console.log(`Bad vibe: ${err}`)
+    })
+  }, [])
 
   function handleClick(e) {
     let reset = false
-    const target = e.target.closest('.card-container').lastElementChild.textContent;
+    const target = e.target.closest('.card-container').firstElementChild.src;
 
-    const arr = cardData.map((card) => {
-      if (card.name === target) {
-        if (card.guessed) {
+    const arr = gifs.map((gif) => {
+      if (gif.url === target) {
+        if (gif.guessed) {
           (currentScore > topScore) && setTopScore(currentScore);
           setCurrentScore(0)
           reset = true
           return {
-            ...card,
+            ...gif,
             guessed: true
           }
         } else {
           setCurrentScore(currentScore + 1)
           return {
-            ...card,
+            ...gif,
             guessed: true
           }
         }
       } else {
         return {
-          ...card
+          ...gif
         }
       }
     })
@@ -68,12 +71,12 @@ function App() {
     if (reset === true) {
       resetCards()
     } else {
-      setCardData(arr)
+      setGifs(arr)
     }
   }
 
   function shuffleCards() {
-    const shuffledArray = cardData.slice();
+    const shuffledArray = gifs.slice();
 
     for (let i = shuffledArray.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -82,14 +85,16 @@ function App() {
 
     return(
       shuffledArray.map((card) =>
-        <Card src={viteLogo} card={card} handleClick={handleClick} />
+        <Card card={card} handleClick={handleClick} />
       )
     )
   }
 
   return (
     <>
-      <Nav src={viteLogo} topScore={topScore} currentScore={currentScore} />
+      <Nav topScore={topScore} currentScore={currentScore} />
+      <div className='placeholder'>
+      </div>
       <div className='container'>
         {shuffleCards()}
       </div>

@@ -1,0 +1,15 @@
+.container {
+  padding: 32px;
+  height: 100vh;
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-rows: max-content;
+  grid-auto-rows: max-content;
+  overflow: auto;
+}
+
+.container img {
+  max-width: 100%;
+  height: auto;
+}

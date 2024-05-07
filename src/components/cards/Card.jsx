@@ -1,5 +1,4 @@
 function Card({
-  src,
   card,
   handleClick
 }) {
@@ -7,8 +6,7 @@ function Card({
 
   return(
     <div className="card-container" onClick={handleClick} >
-      <img src={src} />
-      <h3>{card.name}</h3>
+      <img src={card.url} />
     </div>
   )
 }

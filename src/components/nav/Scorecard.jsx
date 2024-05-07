@@ -3,7 +3,7 @@ function Scorecard({
   text
 }) {
   return (
-    <p> {text}: {score} </p>
+    <p> <strong> {text}:</strong> {score} </p>
   )
 }
 

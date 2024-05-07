@@ -1,5 +1,6 @@
 @import './styles/card.css';
 @import './styles/nav.css';
+@import './styles/grid.css';
 
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -46,15 +47,6 @@ button:hover {
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
-}
-
-.container {
-  padding: 32px;
-  height: 100vh;
-  display: grid;
-  gap: 2rem;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  overflow: auto;
 }
 
 @media (prefers-color-scheme: light) {
